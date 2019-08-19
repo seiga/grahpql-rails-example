@@ -19,6 +19,10 @@ RSpec.describe Mutations::CreateLink, type: :request do
     QUERY
   end
 
+  it 'create a link' do
+    expect{ subject }.to change { Link.count }.by(1)
+  end
+    
   it 'response body is Link data' do
     subject
     json = JSON.parse(response.body)
