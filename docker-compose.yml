@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: .
+      args:
+        APP_HOME: /var/www/workspace
+    environment:
+      API_PG_USER: pguser
+      API_PG_PASS: pgpass
+      API_PG_HOST: postgres
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/var/www/workspace
+      - bundle:/usr/local/bundle
+    stdin_open: true
+    tty: true
+  postgres:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  bundle:
+  postgres:
